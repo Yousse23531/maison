@@ -14,7 +14,19 @@ const MANAGER_EMAIL = process.env.MANAGER_EMAIL || 'manager@maison.com';
 const MANAGER_PASSWORD = process.env.MANAGER_PASSWORD || 'manager123';
 
 const app = express();
-app.use(cors());
+
+// Enhanced CORS configuration
+app.use(cors({
+  origin: [
+    'https://maison-rustique.com',
+    'http://localhost:5173',
+    'http://localhost:3000'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(bodyParser.json({ limit: '1mb' }));
 
 // Root + Health

@@ -103,8 +103,8 @@ export function Footer() {
                       transition={{ type: "spring" as const, stiffness: 300 }}
                     >
                       <Mail size={20} className="text-white/80" />
-                      <a href="mailto:rustic.house.bb@gmail.com" className="hover:text-white transition-colors">
-                        rustic.house.bb@gmail.com
+                      <a href="mailto:reservation@maison-rustique.com" className="hover:text-white transition-colors">
+                        reservation@maison-rustique.com
                       </a>
                     </motion.div>
                   </div>
@@ -114,16 +114,16 @@ export function Footer() {
                 <motion.div variants={itemVariants}>
                   <h4 className="font-bold mb-6">Navigation</h4>
                   <ul className="space-y-3 mb-8">
-                    {['Accueil', 'Notre Maison', 'Galerie', 'Équipements', 'Réservation'].map((item, index) => (
+                    {[{label: 'Accueil', href: '#home'}, {label: 'Notre Maison', href: '#notre-maison'}, {label: 'Galerie', href: '#gallery'}, {label: 'Équipements', href: '#amenities'}, {label: 'Réservation', href: '#reservation'}].map((item, index) => (
                       <motion.li 
-                        key={item}
+                        key={item.label}
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
                         whileHover={{ x: 10, color: '#fcd34d' }}
                       >
-                        <a href={`#${item.toLowerCase().replace(' ', '-')}`} className="hover:text-amber-300 transition-colors">
-                          {item}
+                        <a href={item.href} className="hover:text-amber-300 transition-colors">
+                          {item.label}
                         </a>
                       </motion.li>
                     ))}
@@ -188,7 +188,6 @@ export function Footer() {
                       </motion.p>
                       <p className="text-sm">Check-in: 12h00</p>
                       <p className="text-sm">Check-out: 10h00</p>
-                      <p className="text-sm">Capacité: 8 personnes</p>
                     </motion.div>
                   </div>
                 </motion.div>

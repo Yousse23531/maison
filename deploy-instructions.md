@@ -66,3 +66,5 @@ This tells Apache: "For any URL that doesn't match a real file, serve index.html
 ## 🎯 Expected Result:
 After uploading the `.htaccess` file, `http://maison-rustique.com/admin/blocked-dates` will show your admin interface with the calendar and blocking functionality.
 
+
+

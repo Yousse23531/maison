@@ -4,10 +4,9 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
-import ReservationCalendarEmbedded, { ReservationCalendarModal } from './ReservationCalendar';
-// range modal removed; using single-date modal per field
 import { WhatsAppButton } from './WhatsAppButton';
 import { motion } from 'motion/react';
+import { ReservationCalendarModal } from './ReservationCalendar';
 
 export function ReservationForm() {
   const [formData, setFormData] = useState({
@@ -24,10 +23,11 @@ export function ReservationForm() {
   const [calendarType, setCalendarType] = useState<'checkIn' | 'checkOut'>('checkIn');
   const [dateModalOpen, setDateModalOpen] = useState(false);
 
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const phoneNumber = "+21629173456";
+    const phoneNumber = "+21627181000";
     const message = `
 Bonjour, je souhaite faire une réservation.
 Nom: ${formData.firstName} ${formData.lastName}
@@ -73,6 +73,7 @@ Message: ${formData.message}
       day: 'numeric'
     });
   };
+
 
   return (
     <section id="reservation" className="py-20 bg-gradient-to-b from-cream-100 to-amber-50 relative overflow-hidden">
@@ -249,20 +250,18 @@ Message: ${formData.message}
                   <Users size={16} />
                   Nombre de personnes *
                 </Label>
-                <select
+                <Input
                   id="guests"
                   name="guests"
+                  type="number"
+                  min="1"
+                  max="100"
                   value={formData.guests}
                   onChange={handleChange}
                   required
-                  className="w-full px-3 py-2 border border-amber-200 rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                >
-                  {[1,2,3,4,5,6,7,8].map(num => (
-                    <option key={num} value={num.toString()}>
-                      {num} personne{num > 1 ? 's' : ''}
-                    </option>
-                  ))}
-                </select>
+                  className="border-amber-200 focus:border-amber-500"
+                  placeholder="Nombre de personnes"
+                />
               </div>
             </div>
 
@@ -285,9 +284,8 @@ Message: ${formData.message}
             <div className="bg-amber-50 p-4 rounded-lg">
               <h4 className="font-bold text-amber-800 mb-2">Informations importantes :</h4>
               <ul className="text-sm text-amber-700 space-y-1">
-                <li>• Check-in : 12h00 - Check-out : 10h00</li>
-                <li>• Séjour minimum : 2 nuits</li>
-                <li>• Un acompte de 30% sera demandé pour confirmer la réservation</li>
+                <li>• Check-in : 14h00 - Check-out : 12h00</li>
+                <li>• Un acompte de 50% sera demandé pour confirmer la réservation</li>
                 <li>• Animaux acceptés sur demande (supplément possible)</li>
               </ul>
             </div>
@@ -320,30 +318,30 @@ Message: ${formData.message}
           onDateSelect={handleDateSelect}
           selectedDate={formData[calendarType]}
           isCheckIn={calendarType === 'checkIn'}
+          minDate={calendarType === 'checkOut' ? formData.checkIn : undefined}
         />
 
-        <div className="mt-8 text-center flex flex-col items-center gap-3">
-          <p className="text-amber-700">
-            Vous préférez nous appeler ? Contactez-nous au{' '}
-            <a href="tel:+21627181000" className="font-bold text-amber-800 hover:text-amber-600">
-              +216 27 181 000
-            </a>
+        <div className="mt-8 text-center text-amber-700 space-y-1">
+          <p className="text-lg">📞 Vous préférez nous appeler ?</p>
+          <p className="text-lg">👉 Contactez-nous directement :</p>
+          <p className="font-bold text-amber-800 mt-2 flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-2 text-xl">
+            {/* Using spans and flexbox to allow wrapping on small screens */}
+            +216 27 181 000   |   +216 29 537 537
           </p>
-          <WhatsAppButton phone="+21629173456" message={`Bonjour Maison Rustique, je souhaite réserver du ${formData.checkIn} au ${formData.checkOut}.`} />
         </div>
       </div>
       {/* Full-width Google Map below the form */}
       <div className="mt-12">
         <iframe
           title="Localisation - Maison Rustique"
-          src="https://www.google.com/maps?q=Jebel%20Laswed%20Bir%20Bouregba%2C%20Hammamet%2C%20Tunisia&output=embed"
+          src="https://www.google.com/maps?q=Maison+Rustique,+Jebel+Laswed+Bir+Bouregba,+Hammamet,+Tunisia&output=embed"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           className="w-full h-[300px] sm:h-[380px] md:h-[460px] lg:h-[520px] border-0"
         />
         <div className="mt-3 text-center">
           <a
-            href="https://maps.app.goo.gl/p2d6MV2hgsP6yzCT6"
+            href="https://maps.app.goo.gl/LNN4XyP1RGYUeFRLA"
             target="_blank"
             rel="noopener noreferrer"
             className="text-amber-700 hover:text-amber-900 underline"
